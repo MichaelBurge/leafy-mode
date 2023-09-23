@@ -523,12 +523,12 @@ Messages are logged to the `chatgpt-buffer`. Calls `callback` with the API respo
 
 (defun extract-chatgpt-response-message (response)
   (let* ((choices (cdr (assoc 'choices response)))
-	 (choice (car (aref choices 0)))
-	 (content (cdr (assoc 'content choice)))
-	 )
-    content
-    ))
-    ;;
+	 (choice (aref choices 0))
+	 (message (cdr (assoc 'message choice)))
+	 (content (cdr (assoc 'content message))))
+    content))
+
+;; (extract-chatgpt-response-message '((id . "chatcmpl-81LLbRO80CrTlu0u7A2t8qIQDYOqT") (object . "chat.completion") (created . 1695331079) (model . "gpt-4-0613") (choices . [((index . 0) (message (role . "assistant") (content . "Message acknowledged.")) (finish_reason . "stop"))]) (usage (prompt_tokens . 111) (completion_tokens . 3) (total_tokens . 114))))
 
 ;; Test the do-chatgpt-request function
 ;; (leafy-do-chatgpt-request chatgpt-buffer '((nil "Hello, how are you?") (nil "I'm doing well, thank you.")))
